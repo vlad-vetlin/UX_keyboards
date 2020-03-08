@@ -1,13 +1,15 @@
 <template>
-    <div>
+    <div class="simple-keyboard">
         <simple-keyboard-string v-for="(names, index) in buttons"
                                 :names="names"
                                 :ref="'string_' + index"
+                                :is-one-button="isOneButtons[index]"
                                 :key="index"/>
     </div>
 </template>
 
 <script>
+    import SimpleKeyboardButton from "./SimpleKeyboardButton";
     const moveRightCode = 100;
     const moveLeftCode = 97;
     const moveUpCode = 119;
@@ -17,7 +19,7 @@
     import SimpleKeyboardString from "./SimpleKeyboardString";
     export default {
         name: "SimpleKeyboardComponent",
-        components: {SimpleKeyboardString},
+        components: {SimpleKeyboardButton, SimpleKeyboardString},
         data() {
             return {
                 buttons: [
@@ -25,7 +27,9 @@
                     ['i', 'o', 'p', 'a', 's', 'd', 'f'],
                     ['g', 'h', 'j', 'k', 'l', 'z', 'x'],
                     ['shift', 'c', 'v', 'b', 'n', 'm', 'shift'],
+                    ['', ' ', ' ', ' ', ' ', ' ', '']
                 ],
+                isOneButtons: [false, false, false, false, true],
                 curFocused: 0,
             }
         },
@@ -102,9 +106,8 @@
     .simple-keyboard {
         display: flex;
 
-        flex-wrap: wrap;
-        justify-content: center;
+        align-items: center;
 
-        width: 6 * ($simple-keyboard-button-width + 2.2) + .2em;
+        flex-direction: column;
     }
 </style>
