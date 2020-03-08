@@ -17,19 +17,21 @@
     const clickCode = 13;
 
     import SimpleKeyboardString from "./SimpleKeyboardString";
+    import {getRandomSymbols} from "../assets/js/helper";
     export default {
         name: "SimpleKeyboardComponent",
         components: {SimpleKeyboardButton, SimpleKeyboardString},
         data() {
             return {
                 buttons: [
-                    ['q', 'w', 'e', 'r', 't', 'y', 'u'],
-                    ['i', 'o', 'p', 'a', 's', 'd', 'f'],
-                    ['g', 'h', 'j', 'k', 'l', 'z', 'x'],
-                    ['shift', 'c', 'v', 'b', 'n', 'm', 'shift'],
+                    ['й', 'ц', 'у', 'к', 'е', 'н', 'г'],
+                    ['ш', 'щ', 'p', 'х', 'ъ', 'ф', 'ы'],
+                    ['в', 'а', 'п', 'р', 'о', 'л', 'д'],
+                    ['ж', 'э', 'я', 'ч', 'с', 'м', 'и'],
+                    ['shift', 'т', 'ь', 'б', 'ю', 'ё', 'shift'],
                     ['', ' ', ' ', ' ', ' ', ' ', '']
                 ],
-                isOneButtons: [false, false, false, false, true],
+                isOneButtons: [false, false, false, false, false, true],
                 curFocused: 0,
             }
         },
@@ -41,6 +43,11 @@
                 const ref = this.getRef(index);
 
                 return this.$refs[ref][0];
+            },
+            getFocusedName() {
+                const keyboardString = this.keyboardString(this.curFocused);
+
+                return keyboardString.getActiveName();
             },
             keyPressed(key) {
                 const charCode = key.charCode;
@@ -86,6 +93,12 @@
 
                         break;
                     case clickCode:
+                        const name = this.getFocusedName();
+
+                        const symbols = getRandomSymbols(name, false);
+
+                        console.log(symbols);
+
                         break;
                 }
             }

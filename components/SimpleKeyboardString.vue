@@ -50,6 +50,13 @@
                     return 'simple-keyboard-string-element';
                 }
             },
+            getActiveName() {
+                if (this.isOneButton) {
+                    return this.names[this.start];
+                }
+
+                return this.names[this.focused];
+            },
             isFocused(index) {
                 if (this.isOneButton) {
                     return this.focused !== -1;
