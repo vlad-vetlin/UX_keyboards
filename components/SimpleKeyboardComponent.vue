@@ -1,10 +1,13 @@
 <template>
-    <div class="simple-keyboard">
-        <simple-keyboard-string v-for="(names, index) in buttons"
-                                :names="names"
-                                :ref="'string_' + index"
-                                :is-one-button="isOneButtons[index]"
-                                :key="index"/>
+    <div>
+        <output-menu :text="curString"></output-menu>
+        <div class="simple-keyboard">
+            <simple-keyboard-string v-for="(names, index) in buttons"
+                                    :names="names"
+                                    :ref="'string_' + index"
+                                    :is-one-button="isOneButtons[index]"
+                                    :key="index"/>
+        </div>
     </div>
 </template>
 
@@ -18,9 +21,10 @@
 
     import SimpleKeyboardString from "./SimpleKeyboardString";
     import {getRandomSymbols} from "../assets/js/helper";
+    import OutputMenu from "./OutputMenu";
     export default {
         name: "SimpleKeyboardComponent",
-        components: {SimpleKeyboardButton, SimpleKeyboardString},
+        components: {OutputMenu, SimpleKeyboardButton, SimpleKeyboardString},
         data() {
             return {
                 buttons: [
@@ -33,6 +37,7 @@
                 ],
                 isOneButtons: [false, false, false, false, false, true],
                 curFocused: 0,
+                curString: '',
             }
         },
         methods: {
@@ -97,7 +102,7 @@
 
                         const symbols = getRandomSymbols(name, false);
 
-                        console.log(symbols);
+                        this.curString = this.curString.concat(symbols[0]);
 
                         break;
                 }
