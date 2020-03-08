@@ -5,6 +5,7 @@
             <simple-keyboard-string v-for="(names, index) in buttons"
                                     :names="names"
                                     :ref="'string_' + index"
+                                    :upper-case="upperCase"
                                     :is-one-button="isOneButtons[index]"
                                     :key="index"/>
         </div>
@@ -38,6 +39,7 @@
                 isOneButtons: [false, false, false, false, false, true],
                 curFocused: 0,
                 curString: '',
+                upperCase: false,
             }
         },
         methods: {
@@ -100,7 +102,13 @@
                     case clickCode:
                         const name = this.getFocusedName();
 
-                        const symbols = getRandomSymbols(name, false);
+                        if (name === 'shift') {
+                            this.upperCase = !this.upperCase;
+
+                            return;
+                        }
+
+                        const symbols = getRandomSymbols(name, this.upperCase);
 
                         this.curString = this.curString.concat(symbols[0]);
 

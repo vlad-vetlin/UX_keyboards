@@ -1,7 +1,7 @@
 <template>
     <div class="simple-keyboard-string">
         <simple-keyboard-button v-for="(name, index) in names"
-                                :name="name"
+                                :name="getSymbol(name)"
                                 :is-focused="isFocused(index)"
                                 :class="getClass(index)"
                                 :key="index"/>
@@ -16,6 +16,7 @@
         props: {
             names: {type: Array, required: true},
             isOneButton: {type: Boolean, required: false, default: false},
+            upperCase: {type: Boolean, required: false, default: false},
         },
         data() {
             return {
@@ -25,6 +26,13 @@
             }
         },
         methods: {
+            getSymbol(symbol) {
+                if (this.upperCase) {
+                    return symbol.toUpperCase();
+                }
+
+                return symbol;
+            },
             getClass(index) {
                 if (!this.isOneButton) {
                     return '';
@@ -52,10 +60,10 @@
             },
             getActiveName() {
                 if (this.isOneButton) {
-                    return this.names[this.start];
+                    return this.getSymbol(this.names[this.start]);
                 }
 
-                return this.names[this.focused];
+                return this.getSymbol(this.names[this.focused]);
             },
             isFocused(index) {
                 if (this.isOneButton) {

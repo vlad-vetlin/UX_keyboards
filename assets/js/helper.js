@@ -3,10 +3,10 @@ export const getRandomSymbol = (isCapitalised) => {
         isCapitalised = false;
     }
 
-    const letters = 'йцукенгшщзхъфывапролджэячсмитьбюё ';
+    let letters = 'йцукенгшщзхъфывапролджэячсмитьбюё ';
 
     if (isCapitalised) {
-        letters.toUpperCase();
+        letters = letters.toUpperCase();
     }
 
     const index = Math.floor(Math.random() * letters.length);
