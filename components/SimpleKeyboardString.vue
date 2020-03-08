@@ -3,7 +3,7 @@
         <simple-keyboard-button v-for="(name, index) in names"
                                 :name="name"
                                 :is-focused="isFocused(index)"
-                                :key="name"/>
+                                :key="index"/>
     </div>
 </template>
 
@@ -18,6 +18,8 @@
         data() {
             return {
                 focused: -1,
+                start: -1,
+                finish: -1,
             }
         },
         methods: {
@@ -25,20 +27,48 @@
                 return this.focused === index;
             },
             setFocused(value) {
+                if (value === -1) {
+                    this.focused = -1;
+                    return;
+                }
+
+                if (value < this.start) {
+                    value = this.start;
+                }
+
+                if (value > this.finish) {
+                    value = this.finish;
+                }
+
                 this.focused = value;
             },
             moveRight() {
-                if (this.focused + 1 < this.names.length) {
+                if (this.focused < this.finish) {
                     ++this.focused;
                 }
             },
             moveLeft() {
-                if (this.focused > 0) {
+                if (this.focused > this.start) {
                     --this.focused;
                 }
             },
             getFocused() {
                 return this.focused;
+            }
+        },
+        mounted() {
+            let index = 0;
+
+            for (name of this.names) {
+                if (name !== '' && this.start === -1) {
+                    this.start = index;
+                }
+
+                if (name !== '') {
+                    this.finish = index;
+                }
+
+                ++index;
             }
         },
         components: {SimpleKeyboardButton},
