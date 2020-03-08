@@ -13,6 +13,10 @@
         },
         computed: {
             getClassName() {
+                if (this.name === '') {
+                    return 'simple-keyboard-empty-button';
+                }
+
                 if (this.isFocused) {
                     return 'simple-keyboard-focused-button';
                 } else {
@@ -24,21 +28,30 @@
 </script>
 
 <style scoped lang="scss">
+    @import "../assets/css/constants";
+
     .simple-keyboard-button {
         text-align: center;
         padding: 1em;
         border-style: solid;
         border-color: black;
-        border-width: 1px;
+        border-width: .1em;
 
-        width: 4em;
-        height: 1.5em;
+        width: $simple-keyboard-button-width;
+        height: $simple-keyboard-button-height;
     }
 
     .simple-keyboard-focused-button {
         @extend .simple-keyboard-button;
 
-        border-width: 2px;
+        border-width: .15em;
+        padding: .95em;
         border-color: red;
+    }
+
+    .simple-keyboard-empty-button {
+        @extend .simple-keyboard-button;
+
+        border-width: 0em;
     }
 </style>

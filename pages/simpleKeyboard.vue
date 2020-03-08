@@ -1,15 +1,14 @@
 <template>
     <div>
-        <simple-keyboard-button name="red-test"></simple-keyboard-button>
-        <simple-keyboard-button name="green-test" is-focused></simple-keyboard-button>
+        <simple-keyboard-component></simple-keyboard-component>
     </div>
 </template>
 
 <script>
-    import SimpleKeyboardButton from "../components/SimpleKeyboardButton";
+    import SimpleKeyboardComponent from "../components/SimpleKeyboardComponent";
     export default {
         name: "SimpleKeyboard",
-        components: {SimpleKeyboardButton}
+        components: {SimpleKeyboardComponent}
     }
 </script>
 
