@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import SimpleKeyboardComponent from "../components/SimpleKeyboardComponent";
+    import SimpleKeyboardComponent from "../components/simpleKeyboard/SimpleKeyboardComponent";
     export default {
         name: "SimpleKeyboard",
         components: {SimpleKeyboardComponent}

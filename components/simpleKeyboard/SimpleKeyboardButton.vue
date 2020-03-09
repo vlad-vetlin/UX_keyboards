@@ -40,7 +40,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../assets/css/constants";
+    @import "../../assets/css/constants";
 
     .simple-keyboard-button {
         text-align: center;

@@ -35,9 +35,9 @@
     const clickCode = 13;
 
     import SimpleKeyboardString from "./SimpleKeyboardString";
-    import {getRandomSymbols} from "../assets/js/helper";
-    import OutputMenu from "./OutputMenu";
-    import Node from "./Node";
+    import {getRandomSymbols} from "../../assets/js/helper";
+    import OutputMenu from "../OutputMenu";
+    import Node from "../Node";
     export default {
         name: "SimpleKeyboardComponent",
         components: {Node, OutputMenu, SimpleKeyboardButton, SimpleKeyboardString},
@@ -183,7 +183,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../assets/css/constants";
+    @import "../../assets/css/constants";
 
     .simple-keyboard-alert {
         color: red;
