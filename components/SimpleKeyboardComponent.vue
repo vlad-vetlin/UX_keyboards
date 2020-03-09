@@ -1,16 +1,27 @@
 <template>
     <div>
         <output-menu :text="curString"></output-menu>
-        <div class="simple-keyboard">
-            <simple-keyboard-string v-for="(names, index) in buttons"
-                                    :names="names"
-                                    :ref="'string_' + index"
-                                    :upper-case="upperCase"
-                                    :is-one-button="isOneButtons[index]"
-                                    :key="index"/>
+        <div class="simple-keyboard-alert">
+            <div v-if="showAlert">
+                Вы выбрали неверный символ, и он не был набран
+            </div>
         </div>
-        <div v-if="symbols.length > 0">
-            <node :symbols="symbols"></node>
+        <div class="simple-keyboard-container">
+            <div class="simple-keyboard">
+                <simple-keyboard-string v-for="(names, index) in buttons"
+                                        :names="names"
+                                        :ref="'string_' + index"
+                                        :upper-case="upperCase"
+                                        :is-one-button="isOneButtons[index]"
+                                        :key="index"/>
+            </div>
+            <div class="simple-keyboard-node">
+                <node :symbols="symbols"
+                      v-if="!isActive"
+                      :true-symbol="trueSymbol"
+                      :button-codes="[119, 100, 115, 97]"
+                      @clicked="nodeClicked"/>
+            </div>
         </div>
     </div>
 </template>
@@ -45,9 +56,32 @@
                 curString: '',
                 upperCase: false,
                 symbols: [],
+                isActive: true,
+                curFocusedInChild: 0,
+                showAlert: false,
+                trueSymbol: '',
             }
         },
         methods: {
+            nodeClicked(symbol) {
+                console.log('sosi', this.isActive);
+                this.pushSymbol(symbol);
+                console.log('sosi2', this.isActive);
+
+                this.isActive = true;
+
+                this.restoreFocused();
+            },
+            pushSymbol(symbol) {
+                if (symbol === '') {
+
+                    this.showAlert = true;
+
+                    return;
+                }
+
+                this.curString = this.curString.concat(symbol);
+            },
             getRef(index) {
                 return 'string_' + index;
             },
@@ -62,6 +96,12 @@
                 return keyboardString.getActiveName();
             },
             keyPressed(key) {
+                if (!this.isActive) {
+                    return;
+                }
+
+                this.showAlert = false;
+
                 const charCode = key.charCode;
                 const keyboardString = this.keyboardString(this.curFocused);
 
@@ -107,26 +147,37 @@
                     case clickCode:
                         const name = this.getFocusedName();
 
-                        if (name === 'shift') {
+                        if (name === 'shift' || name === 'SHIFT') {
                             this.upperCase = !this.upperCase;
 
                             return;
                         }
 
                         this.symbols = getRandomSymbols(name, this.upperCase);
+                        this.trueSymbol = name;
 
-                        // this.curString = this.curString.concat(symbols[0]);
+                        this.saveFocused();
+                        this.isActive = false;
 
                         break;
                 }
+            },
+            saveFocused() {
+                const keyboard = this.keyboardString(this.curFocused);
+
+                this.curFocusedInChild = keyboard.getFocused();
+                keyboard.setFocused(-1);
+            },
+            restoreFocused() {
+                const keyboard = this.keyboardString(this.curFocused);
+
+                keyboard.setFocused(this.curFocusedInChild);
             }
         },
         mounted() {
             document.addEventListener('keypress', this.keyPressed);
 
-            const keyboardString = this.keyboardString(this.curFocused);
-
-            keyboardString.setFocused(0);
+            this.restoreFocused();
         },
     }
 </script>
@@ -134,11 +185,40 @@
 <style scoped lang="scss">
     @import "../assets/css/constants";
 
-    .simple-keyboard {
+    .simple-keyboard-alert {
+        color: red;
+
+        height: 1em;
+
+        margin: 1em;
+
+        text-align: center;
+    }
+
+    %abstract-simple-keyboard-container {
         display: flex;
 
-        align-items: center;
-
         flex-direction: column;
+
+        .simple-keyboard {
+            display: flex;
+
+            align-items: center;
+
+            flex-direction: column;
+
+            margin-bottom: 2em;
+        }
+
+        .simple-keyboard-node {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .simple-keyboard-container {
+        @extend %abstract-simple-keyboard-container;
+
+        align-items: center;
     }
 </style>

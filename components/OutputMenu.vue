@@ -20,7 +20,7 @@
         border-style: solid;
 
         width: 98vw;
-        height: 20em;
+        height: 10em;
 
         margin-bottom: 3em;
     }

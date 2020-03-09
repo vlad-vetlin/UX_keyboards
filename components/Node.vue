@@ -17,6 +17,38 @@
         name: "Node",
         props: {
             symbols: {type: Array, required: true},
+            buttonCodes: {type: Array, required: true},
+            trueSymbol: {type: String, required: true},
+        },
+        methods: {
+            emitClicked(index) {
+                if (this.symbols[index] === this.trueSymbol) {
+                    this.$emit('clicked', this.symbols[index]);
+                } else {
+                    this.$emit('clicked', '');
+                }
+            },
+            keyPressed(key) {
+                const charCode = key.charCode;
+
+                switch (charCode) {
+                    case this.buttonCodes[0]:
+                        this.emitClicked(0);
+                        break;
+                    case this.buttonCodes[1]:
+                        this.emitClicked(2);
+                        break;
+                    case this.buttonCodes[2]:
+                        this.emitClicked(3);
+                        break;
+                    case this.buttonCodes[3]:
+                        this.emitClicked(1);
+                        break;
+                }
+            },
+        },
+        mounted() {
+            document.addEventListener('keypress', this.keyPressed);
         }
     }
 </script>
