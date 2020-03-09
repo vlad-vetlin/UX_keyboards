@@ -9,6 +9,9 @@
                                     :is-one-button="isOneButtons[index]"
                                     :key="index"/>
         </div>
+        <div v-if="symbols.length > 0">
+            <node :symbols="symbols"></node>
+        </div>
     </div>
 </template>
 
@@ -23,9 +26,10 @@
     import SimpleKeyboardString from "./SimpleKeyboardString";
     import {getRandomSymbols} from "../assets/js/helper";
     import OutputMenu from "./OutputMenu";
+    import Node from "./Node";
     export default {
         name: "SimpleKeyboardComponent",
-        components: {OutputMenu, SimpleKeyboardButton, SimpleKeyboardString},
+        components: {Node, OutputMenu, SimpleKeyboardButton, SimpleKeyboardString},
         data() {
             return {
                 buttons: [
@@ -40,6 +44,7 @@
                 curFocused: 0,
                 curString: '',
                 upperCase: false,
+                symbols: [],
             }
         },
         methods: {
@@ -108,9 +113,9 @@
                             return;
                         }
 
-                        const symbols = getRandomSymbols(name, this.upperCase);
+                        this.symbols = getRandomSymbols(name, this.upperCase);
 
-                        this.curString = this.curString.concat(symbols[0]);
+                        // this.curString = this.curString.concat(symbols[0]);
 
                         break;
                 }
