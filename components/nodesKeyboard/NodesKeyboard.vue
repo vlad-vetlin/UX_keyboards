@@ -1,10 +1,29 @@
 <template>
-
+    <div>
+        <div>
+            <node></node>
+            <node></node>
+            <node></node>
+        </div>
+        <div>
+            <node></node>
+            <node></node>
+            <node></node>
+            <node></node>
+        </div>
+        <div>
+            <node></node>
+            <node></node>
+            <node></node>
+        </div>
+    </div>
 </template>
 
 <script>
+    import Node from "../Node";
     export default {
         name: "NodesKeyboard",
+        components: {Node},
         data() {
             return {
                 buttons: [

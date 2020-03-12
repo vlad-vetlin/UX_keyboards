@@ -59,6 +59,9 @@
                 curFocusedInChild: 0,
                 showAlert: false,
                 trueSymbol: '',
+                lastX: 0,
+                lastY: 0,
+                mouseRemove: true,
             }
         },
         methods: {
@@ -101,7 +104,7 @@
 
                 this.showAlert = false;
 
-                const charCode = key.charCode;
+                const charCode = key;
                 const keyboardString = this.keyboardString(this.curFocused);
 
                 switch (charCode) {
@@ -171,10 +174,40 @@
                 const keyboard = this.keyboardString(this.curFocused);
 
                 keyboard.setFocused(this.curFocusedInChild);
+            },
+            mouseMove(event) {
+                if (Math.abs(diffY) < 10 && Math.abs(diffX) < 10) {
+
+                    this.mouseRemove = true;
+
+                    return;
+                }
+
+                if (!this.mouseRemove) {
+                    return;
+                }
+
+                this.mouseRemove = false;
+
+                if (Math.abs(diffY) > Math.abs(diffX)) {
+                    if (diffY < 0) {
+                        this.keyPressed(moveDownCode);
+                    } else {
+                        this.keyPressed(moveUpCode);
+                    }
+                } else {
+                    if (diffX < 0) {
+                        this.keyPressed(moveRightCode);
+                    } else {
+                        this.keyPressed(moveLeftCode);
+                    }
+                }
+
             }
         },
         mounted() {
-            document.addEventListener('keypress', this.keyPressed);
+            // document.addEventListener('keypress', this.keyPressed);
+            document.addEventListener('mousemove', this.mouseMove);
 
             this.restoreFocused();
         },
