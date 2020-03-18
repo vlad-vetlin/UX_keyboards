@@ -102,9 +102,10 @@
                     return;
                 }
 
+
                 this.showAlert = false;
 
-                const charCode = key;
+                const charCode = key.charCode;
                 const keyboardString = this.keyboardString(this.curFocused);
 
                 switch (charCode) {
@@ -206,8 +207,8 @@
             }
         },
         mounted() {
-            // document.addEventListener('keypress', this.keyPressed);
-            document.addEventListener('mousemove', this.mouseMove);
+            document.addEventListener('keypress', this.keyPressed);
+            // document.addEventListener('mousemove', this.mouseMove);
 
             this.restoreFocused();
         },

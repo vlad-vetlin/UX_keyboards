@@ -12,6 +12,7 @@
   "dependencies": {
     "node-sass": "^4.13.1",
     "nuxt": "^2.11.0",
+    "nuxt-socket-io": "^1.0.21",
     "sass-loader": "^8.0.2"
   }
 }
