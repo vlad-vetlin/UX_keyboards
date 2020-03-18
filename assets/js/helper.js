@@ -32,4 +32,18 @@ export const getRandomSymbols = (symbol, isCapitalised) => {
     arr.push(getRandomSymbol(isCapitalised));
 
     return shuffle(arr);
-}
+};
+
+export const turnCaseRecursive = (arr, upperCase = true) => {
+        if (Array.isArray(arr)) {
+            return arr.map((item) => {
+                return turnCaseRecursive(item, upperCase);
+            });
+        } else {
+            if (upperCase) {
+                return arr.toUpperCase();
+            } else {
+                return arr.toLowerCase();
+            }
+        }
+};

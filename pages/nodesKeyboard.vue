@@ -1,15 +1,16 @@
 <template>
     <div>
         <output-menu :text="curString"></output-menu>
-        <simple-keyboard-component @pressSymbol="pressSymbol"></simple-keyboard-component>
+        <nodes-keyboard-component @pressSymbol="pressSymbol"></nodes-keyboard-component>
     </div>
 </template>
 
 <script>
-    import SimpleKeyboardComponent from "../components/simpleKeyboard/SimpleKeyboardComponent";
+    import NodesKeyboardComponent from "../components/nodesKeyboard/NodesKeyboardComponent";
     import OutputMenu from "../components/OutputMenu";
+
     export default {
-        name: "SimpleKeyboard",
+        name: "NodesKeyboard",
         data() {
             return {
                 curString: '',
@@ -17,10 +18,13 @@
         },
         methods: {
             pressSymbol(symbol) {
+                console.log('lalka');
                 this.curString = this.curString.concat(symbol);
             }
         },
-        components: {SimpleKeyboardComponent, OutputMenu}
+        components: {
+            NodesKeyboardComponent, OutputMenu
+        }
     }
 </script>
 

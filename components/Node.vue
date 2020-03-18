@@ -1,5 +1,5 @@
 <template>
-    <div class="node-container">
+    <div :class="nodeContainer">
         <div class="node">
             <div class="node-horizontal-element">{{symbols[0]}}</div>
             <div class="node-center-container">
@@ -17,8 +17,9 @@
         name: "Node",
         props: {
             symbols: {type: Array, required: true},
-            buttonCodes: {type: Array, required: true},
-            trueSymbol: {type: String, required: true},
+            buttonCodes: {type: Array, required: false, default: () => { return []; }},
+            trueSymbol: {type: String, required: false, default: ''},
+            isActive: {type: Boolean, required: false, default: false},
         },
         methods: {
             emitClicked(index) {
@@ -29,6 +30,10 @@
                 }
             },
             keyPressed(key) {
+                if (!this.buttonCodes.length === 0) {
+                    return;
+                }
+
                 const charCode = key.charCode;
 
                 switch (charCode) {
@@ -46,6 +51,15 @@
                         break;
                 }
             },
+        },
+        computed: {
+            nodeContainer() {
+                if (!this.isActive) {
+                    return 'node-container';
+                } else {
+                    return 'active-node-container';
+                }
+            }
         },
         mounted() {
             document.addEventListener('keypress', this.keyPressed);
@@ -120,5 +134,18 @@
                 align-items: center;
             }
         }
+    }
+
+    .active-node-container {
+        @extend .node-container;
+
+        $width: 6em;
+        $height: 1em;
+
+        border-width: .3em;
+        border-color: red;
+
+        width: $width + 6 * $height - .4em;
+        height: $width + 6 * $height - .4em;
     }
 </style>

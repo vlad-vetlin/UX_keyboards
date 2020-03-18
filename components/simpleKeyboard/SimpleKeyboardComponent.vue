@@ -1,6 +1,5 @@
 <template>
     <div>
-        <output-menu :text="curString"></output-menu>
         <div class="simple-keyboard-alert">
             <div v-if="showAlert">
                 Вы выбрали неверный символ, и он не был набран
@@ -19,7 +18,7 @@
                 <node :symbols="symbols"
                       v-if="!isActive"
                       :true-symbol="trueSymbol"
-                      :button-codes="[119, 100, 115, 97]"
+                      :button-codes="[1085, 1075, 1086, 1088]"
                       @clicked="nodeClicked"/>
             </div>
         </div>
@@ -28,11 +27,11 @@
 
 <script>
     import SimpleKeyboardButton from "./SimpleKeyboardButton";
-    const moveRightCode = 100;
-    const moveLeftCode = 97;
-    const moveUpCode = 119;
-    const moveDownCode = 115;
-    const clickCode = 13;
+    const moveRightCode = 1075;
+    const moveLeftCode = 1088;
+    const moveUpCode = 1085;
+    const moveDownCode = 1086;
+    const clickCode = 1097;
 
     import SimpleKeyboardString from "./SimpleKeyboardString";
     import {getRandomSymbols} from "../../assets/js/helper";
@@ -40,7 +39,7 @@
     import Node from "../Node";
     export default {
         name: "SimpleKeyboardComponent",
-        components: {Node, OutputMenu, SimpleKeyboardButton, SimpleKeyboardString},
+        components: {Node, SimpleKeyboardButton, SimpleKeyboardString},
         data() {
             return {
                 buttons: [
@@ -52,7 +51,6 @@
                 ],
                 isOneButtons: [false, false, false, false, true],
                 curFocused: 0,
-                curString: '',
                 upperCase: false,
                 symbols: [],
                 isActive: true,
@@ -66,9 +64,7 @@
         },
         methods: {
             nodeClicked(symbol) {
-                console.log('sosi', this.isActive);
                 this.pushSymbol(symbol);
-                console.log('sosi2', this.isActive);
 
                 this.isActive = true;
 
@@ -82,7 +78,7 @@
                     return;
                 }
 
-                this.curString = this.curString.concat(symbol);
+                this.$emit('pressSymbol', symbol);
             },
             getRef(index) {
                 return 'string_' + index;
@@ -176,39 +172,9 @@
 
                 keyboard.setFocused(this.curFocusedInChild);
             },
-            mouseMove(event) {
-                if (Math.abs(diffY) < 10 && Math.abs(diffX) < 10) {
-
-                    this.mouseRemove = true;
-
-                    return;
-                }
-
-                if (!this.mouseRemove) {
-                    return;
-                }
-
-                this.mouseRemove = false;
-
-                if (Math.abs(diffY) > Math.abs(diffX)) {
-                    if (diffY < 0) {
-                        this.keyPressed(moveDownCode);
-                    } else {
-                        this.keyPressed(moveUpCode);
-                    }
-                } else {
-                    if (diffX < 0) {
-                        this.keyPressed(moveRightCode);
-                    } else {
-                        this.keyPressed(moveLeftCode);
-                    }
-                }
-
-            }
         },
         mounted() {
             document.addEventListener('keypress', this.keyPressed);
-            // document.addEventListener('mousemove', this.mouseMove);
 
             this.restoreFocused();
         },
