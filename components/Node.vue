@@ -27,6 +27,7 @@
             trueSymbol: {type: String, required: false, default: ''},
             isActive: {type: Boolean, required: false, default: false},
             inLine: {type: Boolean, required: false, default: false},
+            backCode: {type: Number, required: false, default: -1},
         },
         methods: {
             emitClicked(index) {
@@ -42,6 +43,11 @@
                 }
 
                 const charCode = key.charCode;
+
+                if (charCode === this.backCode) {
+                    this.$emit('clicked', 'back');
+                    return;
+                }
 
                 switch (charCode) {
                     case this.buttonCodes[0]:

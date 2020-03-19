@@ -18,7 +18,8 @@
                 <node :symbols="symbols"
                       v-if="!isActive"
                       :true-symbol="trueSymbol"
-                      :button-codes="[1085, 1075, 1086, 1088]"
+                      :back-code="1085"
+                      :button-codes="[1092, 1094, 1074, 1095]"
                       @clicked="nodeClicked"/>
             </div>
         </div>
@@ -27,15 +28,15 @@
 
 <script>
     import SimpleKeyboardButton from "./SimpleKeyboardButton";
-    const moveRightCode = 1075;
-    const moveLeftCode = 1088;
-    const moveUpCode = 1085;
-    const moveDownCode = 1086;
-    const clickCode = 1097;
+    const moveRightCode = 1094;
+    const moveLeftCode = 1095;
+    const moveUpCode = 1092;
+    const moveDownCode = 1074;
+    const clickCode = 1076;
+    const backCode = 1085; // c
 
     import SimpleKeyboardString from "./SimpleKeyboardString";
     import {getRandomSymbols} from "../../assets/js/helper";
-    import OutputMenu from "../OutputMenu";
     import Node from "../Node";
     export default {
         name: "SimpleKeyboardComponent",
@@ -78,6 +79,10 @@
                     return;
                 }
 
+                if (symbol === 'back') {
+                    return;
+                }
+
                 this.$emit('pressSymbol', symbol);
             },
             getRef(index) {
@@ -97,7 +102,6 @@
                 if (!this.isActive) {
                     return;
                 }
-
 
                 this.showAlert = false;
 
@@ -158,6 +162,10 @@
                         this.saveFocused();
                         this.isActive = false;
 
+                        break;
+                    case backCode:
+                        this.isActive = true;
+                        this.restoreFocused();
                         break;
                 }
             },
