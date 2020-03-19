@@ -1,6 +1,6 @@
 <template>
     <div :class="nodeContainer">
-        <div class="node">
+        <div class="node" v-if="!inLine">
             <div class="node-horizontal-element">{{symbols[0]}}</div>
             <div class="node-center-container">
                 <div class="node-vertical-element">{{symbols[1]}}</div>
@@ -8,6 +8,12 @@
                 <div class="node-vertical-element">{{symbols[2]}}</div>
             </div>
             <div class="node-horizontal-element">{{symbols[3]}}</div>
+        </div>
+        <div v-else>
+            {{symbols[0]}}
+            {{symbols[1]}}
+            {{symbols[2]}}
+            {{symbols[3]}}
         </div>
     </div>
 </template>
@@ -20,6 +26,7 @@
             buttonCodes: {type: Array, required: false, default: () => { return []; }},
             trueSymbol: {type: String, required: false, default: ''},
             isActive: {type: Boolean, required: false, default: false},
+            inLine: {type: Boolean, required: false, default: false},
         },
         methods: {
             emitClicked(index) {
@@ -83,6 +90,8 @@
         border-width: .1em;
         border-color: black;
         border-style: solid;
+
+        font-weight: bold;
 
         .node {
             width: $width + 4 * $height;

@@ -2,21 +2,21 @@
     <div class="nodes-keyboard-container">
         <div>
             <div class="nodes-line">
-                <node :is-active="isActive(0)" :symbols="buttons[0]"></node>
-                <node :is-active="isActive(1)" :symbols="buttons[1]"></node>
-                <node :is-active="isActive(2)" :symbols="buttons[2]"></node>
+                <node :is-active="isActive(0)" :symbols="buttons[0]" :in-line="!isActive(0)"></node>
+                <node :is-active="isActive(1)" :symbols="buttons[1]" :in-line="!isActive(1)"></node>
+                <node :is-active="isActive(2)" :symbols="buttons[2]" :in-line="!isActive(2)"></node>
             </div>
             <div class="nodes-line">
-                <node :is-active="isActive(3)" :symbols="buttons[3]"></node>
-                <node :is-active="isActive(4)" :symbols="buttons[4]"></node>
-                <node :is-active="isActive(5)" :symbols="buttons[5]"></node>
-                <node :is-active="isActive(6)" :symbols="buttons[6]"></node>
-                <node :is-active="isActive(7)" :symbols="buttons[7]"></node>
+                <node :is-active="isActive(3)" :symbols="buttons[3]" :in-line="!isActive(3)"></node>
+                <node :is-active="isActive(4)" :symbols="buttons[4]" :in-line="!isActive(4)"></node>
+                <node :is-active="isActive(5)" :symbols="buttons[5]" :in-line="!isActive(5)"></node>
+                <node :is-active="isActive(6)" :symbols="buttons[6]" :in-line="!isActive(6)"></node>
+                <node :is-active="isActive(7)" :symbols="buttons[7]" :in-line="!isActive(7)"></node>
             </div>
             <div class="nodes-line">
-                <node :is-active="isActive(8)" :symbols="buttons[8]"></node>
-                <node :is-active="isActive(9)" :symbols="buttons[9]"></node>
-                <node :is-active="isActive(10)" :symbols="buttons[10]"></node>
+                <node :is-active="isActive(8)" :symbols="buttons[8]" :in-line="!isActive(8)"></node>
+                <node :is-active="isActive(9)" :symbols="buttons[9]" :in-line="!isActive(9)"></node>
+                <node :is-active="isActive(10)" :symbols="buttons[10]" :in-line="!isActive(10)"></node>
             </div>
         </div>
     </div>
@@ -30,6 +30,11 @@
     const moveLeftCode = 1095;
     const moveUpCode = 1092;
     const moveDownCode = 1074;
+
+    // const moveRightCode = 1074;
+    // const moveLeftCode = 1092;
+    // const moveUpCode = 1094;
+    // const moveDownCode = 1099;
 
     const moveRightInNodeCode = 1075;
     const moveLeftInNodeCode = 1088;
