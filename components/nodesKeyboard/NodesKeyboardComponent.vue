@@ -2,21 +2,21 @@
     <div class="nodes-keyboard-container">
         <div>
             <div class="nodes-line">
-                <node :is-active="isActive(0)" :symbols="buttons[0]" :in-line="!isActive(0)"></node>
-                <node :is-active="isActive(1)" :symbols="buttons[1]" :in-line="!isActive(1)"></node>
-                <node :is-active="isActive(2)" :symbols="buttons[2]" :in-line="!isActive(2)"></node>
+                <node :is-active="isActive(0)" :symbols="getButtons(0)" :in-line="!isActive(0)"></node>
+                <node :is-active="isActive(1)" :symbols="getButtons(1)" :in-line="!isActive(1)"></node>
+                <node :is-active="isActive(2)" :symbols="getButtons(2)" :in-line="!isActive(2)"></node>
             </div>
             <div class="nodes-line">
-                <node :is-active="isActive(3)" :symbols="buttons[3]" :in-line="!isActive(3)"></node>
-                <node :is-active="isActive(4)" :symbols="buttons[4]" :in-line="!isActive(4)"></node>
-                <node :is-active="isActive(5)" :symbols="buttons[5]" :in-line="!isActive(5)"></node>
-                <node :is-active="isActive(6)" :symbols="buttons[6]" :in-line="!isActive(6)"></node>
-                <node :is-active="isActive(7)" :symbols="buttons[7]" :in-line="!isActive(7)"></node>
+                <node :is-active="isActive(3)" :symbols="getButtons(3)" :in-line="!isActive(3)"></node>
+                <node :is-active="isActive(4)" :symbols="getButtons(4)" :in-line="!isActive(4)"></node>
+                <node :is-active="isActive(5)" :symbols="getButtons(5)" :in-line="!isActive(5)"></node>
+                <node :is-active="isActive(6)" :symbols="getButtons(6)" :in-line="!isActive(6)"></node>
+                <node :is-active="isActive(7)" :symbols="getButtons(7)" :in-line="!isActive(7)"></node>
             </div>
             <div class="nodes-line">
-                <node :is-active="isActive(8)" :symbols="buttons[8]" :in-line="!isActive(8)"></node>
-                <node :is-active="isActive(9)" :symbols="buttons[9]" :in-line="!isActive(9)"></node>
-                <node :is-active="isActive(10)" :symbols="buttons[10]" :in-line="!isActive(10)"></node>
+                <node :is-active="isActive(8)" :symbols="getButtons(8)" :in-line="!isActive(8)"></node>
+                <node :is-active="isActive(9)" :symbols="getButtons(9)" :in-line="!isActive(9)"></node>
+                <node :is-active="isActive(10)" :symbols="getButtons(10)" :in-line="!isActive(10)"></node>
             </div>
         </div>
     </div>
@@ -40,7 +40,14 @@
     const moveLeftInNodeCode = 1088;
     const moveUpInNodeCode = 1085;
     const moveDownInNodeCode = 1086;
+
+    // const moveRightInNodeCode = 1076;
+    // const moveLeftInNodeCode = 1086;
+    // const moveUpInNodeCode = 1096;
+    // const moveDownInNodeCode = 1083;
+
     const clickCode = 1097;
+    // const clickCode = 13;
 
     const defaultActive = 5;
 
@@ -54,7 +61,7 @@
                     ['0', '1', '2', '3'], // право верх
                     ['и', 'п', 'с', 'я'], // верх
                     ['4', '5', '6', '7'], // лево верх
-                    ['б', 'ж', 'ф', 'ю'],  // самый левый
+                    ['б', 'ж', 'ф', 'ю'], // самый левый
                     ['д', 'з', 'к', 'р'], // лево
                     ['о', 'a', 'e', ' '], // центр
                     ['л', 'м', 'н', 'ы'], // прав
@@ -65,9 +72,17 @@
                 ],
                 curActive: defaultActive,
                 isShift: false,
+                curActiveButtons: [],
             }
         },
         methods: {
+            getButtons(index) {
+                if (index === this.curActive) {
+                    return this.curActiveButtons;
+                } else {
+                    return this.buttons[index];
+                }
+            },
             makeShiftEverywhere() {
                 this.isShift = !this.isShift;
                 this.buttons = turnCaseRecursive(this.buttons, this.isShift);
@@ -173,19 +188,19 @@
                 }
             },
             moveUpInNode() {
-                this.$emit('pressSymbol', this.buttons[this.curActive][0]);
+                this.$emit('pressSymbol', this.curActiveButtons[0]);
                 this.curActive = defaultActive;
             },
             moveDownInNode() {
-                this.$emit('pressSymbol', this.buttons[this.curActive][3]);
+                this.$emit('pressSymbol', this.curActiveButtons[3]);
                 this.curActive = defaultActive;
             },
             moveLeftInNode() {
-                this.$emit('pressSymbol', this.buttons[this.curActive][1]);
+                this.$emit('pressSymbol', this.curActiveButtons[1]);
                 this.curActive = defaultActive;
             },
             moveRightInNode() {
-                this.$emit('pressSymbol', this.buttons[this.curActive][2]);
+                this.$emit('pressSymbol', this.curActiveButtons[2]);
                 this.curActive = defaultActive;
             },
             isActive(index) {
@@ -224,10 +239,14 @@
                         break;
                 }
 
-                shuffle(this.buttons[this.curActive]);
+                this.curActiveButtons = shuffle(this.buttons[this.curActive].slice())
+
+                // this.getButtons(this.curActive);
+                // shuffle(this.buttons[this.curActive]);
             }
         },
         mounted() {
+            this.curActiveButtons = shuffle(this.buttons[this.curActive].slice());
             document.addEventListener('keypress', this.keyPressed);
         }
     }

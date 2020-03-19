@@ -121,12 +121,16 @@
             .node-horizontal-element {
                 @extend %node-element;
 
+                /*border-color: white;*/
+
                 width: $width;
                 height: $height;
             }
 
             .node-vertical-element {
                 @extend %node-element;
+
+                /*border-color: white;*/
 
                 width: $height;
                 height: $width;
