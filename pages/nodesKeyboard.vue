@@ -8,22 +8,26 @@
 <script>
     import NodesKeyboardComponent from "../components/nodesKeyboard/NodesKeyboardComponent";
     import OutputMenu from "../components/OutputMenu";
+    import {texts} from "../assets/js/texts";
 
     export default {
         name: "NodesKeyboard",
         data() {
             return {
                 curString: '',
+                texts: '',
             }
         },
         methods: {
             pressSymbol(symbol) {
-                console.log('lalka');
                 this.curString = this.curString.concat(symbol);
             }
         },
         components: {
             NodesKeyboardComponent, OutputMenu
+        },
+        mounted() {
+            this.texts = texts;
         }
     }
 </script>
