@@ -20,8 +20,12 @@
         border-style: solid;
 
         width: 98vw;
-        height: 10em;
+        height: 5em;
 
         margin-bottom: 3em;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 </style>

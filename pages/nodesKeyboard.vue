@@ -1,7 +1,8 @@
 <template>
     <div>
         <output-menu :text="curString"></output-menu>
-        <nodes-keyboard-component @pressSymbol="pressSymbol"></nodes-keyboard-component>
+        <nodes-keyboard-component class="nodes-keyboard-component" @pressSymbol="pressSymbol"></nodes-keyboard-component>
+        <output-menu :text="texts[curTextCount]"></output-menu>
     </div>
 </template>
 
@@ -16,6 +17,7 @@
             return {
                 curString: '',
                 texts: '',
+                curTextCount: 1,
             }
         },
         methods: {
@@ -32,6 +34,8 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+    .nodes-keyboard-component {
+        margin-bottom: 3em;
+    }
 </style>
