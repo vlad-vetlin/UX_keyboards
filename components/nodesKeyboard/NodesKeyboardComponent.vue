@@ -26,28 +26,28 @@
 
     import {shuffle, turnCaseRecursive} from "../../assets/js/helper";
 
-    // const moveRightCode = 1094;
-    // const moveLeftCode = 1095;
-    // const moveUpCode = 1092;
-    // const moveDownCode = 1074;
+    const moveRightCode = 1094;
+    const moveLeftCode = 1095;
+    const moveUpCode = 1092;
+    const moveDownCode = 1074;
 
-    const moveRightCode = 1074;
-    const moveLeftCode = 1092;
-    const moveUpCode = 1094;
-    const moveDownCode = 1099;
+    // const moveRightCode = 1074;
+    // const moveLeftCode = 1092;
+    // const moveUpCode = 1094;
+    // const moveDownCode = 1099;
 
-    // const moveRightInNodeCode = 1075;
-    // const moveLeftInNodeCode = 1088;
-    // const moveUpInNodeCode = 1085;
-    // const moveDownInNodeCode = 1086;
+    const moveRightInNodeCode = 1075;
+    const moveLeftInNodeCode = 1088;
+    const moveUpInNodeCode = 1085;
+    const moveDownInNodeCode = 1086;
 
-    const moveRightInNodeCode = 1076;
-    const moveLeftInNodeCode = 1086;
-    const moveUpInNodeCode = 1096;
-    const moveDownInNodeCode = 1083;
+    // const moveRightInNodeCode = 1076;
+    // const moveLeftInNodeCode = 1086;
+    // const moveUpInNodeCode = 1096;
+    // const moveDownInNodeCode = 1083;
 
-    // const clickCode = 1097;
-    const clickCode = 13;
+    const clickCode = 1097;
+    // const clickCode = 13;
 
     const defaultActive = 5;
 
