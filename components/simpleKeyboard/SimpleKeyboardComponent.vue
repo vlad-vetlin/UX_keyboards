@@ -18,8 +18,8 @@
                 <node :symbols="symbols"
                       v-if="!isActive"
                       :true-symbol="trueSymbol"
-                      :back-code="1085"
-                      :button-codes="[1092, 1094, 1074, 1095]"
+                      :back-code="backCode"
+                      :button-codes="[moveUpCode, moveRightCode, moveDownCode, moveLeftCode]"
                       @clicked="nodeClicked"/>
             </div>
         </div>
@@ -28,16 +28,11 @@
 
 <script>
     import SimpleKeyboardButton from "./SimpleKeyboardButton";
-    const moveRightCode = 1094;
-    const moveLeftCode = 1095;
-    const moveUpCode = 1092;
-    const moveDownCode = 1074;
-    const clickCode = 1076;
-    const backCode = 1085; // c
-
     import SimpleKeyboardString from "./SimpleKeyboardString";
     import {getRandomSymbols} from "../../assets/js/helper";
     import Node from "../Node";
+
+
     export default {
         name: "SimpleKeyboardComponent",
         components: {Node, SimpleKeyboardButton, SimpleKeyboardString},
@@ -61,7 +56,28 @@
                 lastX: 0,
                 lastY: 0,
                 mouseRemove: true,
+
+                moveRightCode: 1094,
+                moveLeftCode: 1095,
+                moveUpCode: 1092,
+                moveDownCode: 1074,
+
+                // moveRightCode: 1074,
+                // moveLeftCode: 1092,
+                // moveUpCode: 1094,
+                // moveDownCode: 1099,
+
+                clickCode: 1076,
+
+                // clickCode: 13,
+
+                backCode: 1085, // c
+
+                // backCode: 32 // c
             }
+        },
+        props: {
+            isReady: {type: Boolean, required: true,},
         },
         methods: {
             nodeClicked(symbol) {
@@ -99,6 +115,10 @@
                 return keyboardString.getActiveName();
             },
             keyPressed(key) {
+                if (!this.isReady) {
+                    return;
+                }
+
                 if (!this.isActive) {
                     return;
                 }
@@ -109,13 +129,13 @@
                 const keyboardString = this.keyboardString(this.curFocused);
 
                 switch (charCode) {
-                    case moveRightCode:
+                    case this.moveRightCode:
                         keyboardString.moveRight();
                         break;
-                    case moveLeftCode:
+                    case this.moveLeftCode:
                         keyboardString.moveLeft();
                         break;
-                    case moveDownCode:
+                    case this.moveDownCode:
                         if (this.curFocused + 1 >= this.buttons.length) {
                             break;
                         }
@@ -131,7 +151,7 @@
                         upKeyboardString.setFocused(valueForUp);
 
                         break;
-                    case moveUpCode:
+                    case this.moveUpCode:
                         if (this.curFocused === 0) {
                             break;
                         }
@@ -147,7 +167,7 @@
                         downKeyboardString.setFocused(valueForDown);
 
                         break;
-                    case clickCode:
+                    case this.clickCode:
                         const name = this.getFocusedName();
 
                         if (name === 'shift' || name === 'SHIFT') {
@@ -163,7 +183,7 @@
                         this.isActive = false;
 
                         break;
-                    case backCode:
+                    case this.backCode:
                         this.isActive = true;
                         this.restoreFocused();
                         break;

@@ -8,7 +8,7 @@
     export default {
         name: "OutputMenu",
         props: {
-            text: {type: String, required: true},
+            text: {required: true},
         }
     }
 </script>

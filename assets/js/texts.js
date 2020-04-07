@@ -1,5 +1,5 @@
 export const texts = [
-    "test",
-    "kek",
-    "lol",
+    "тест",
+    "кек",
+    "лол",
 ];
