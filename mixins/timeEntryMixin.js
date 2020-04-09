@@ -12,6 +12,7 @@ export const timeEntryMixin = {
 
             timeMetric: 0,
             mistakeMetric: 0,
+            symbolCount: 0,
         }
     },
     methods: {
@@ -55,8 +56,9 @@ export const timeEntryMixin = {
             alert("Время: " + Math.floor(time / 1000) + " секунд, " + time % 1000 + " миллисекунд. " + mistakes + " ошибок.");
             alert("Длина строки: " + this.texts[this.curTextCount].length + " символов");
 
-            this.timeMetric += time;
+            this.timeMetric += Math.floor(time / 1000);
             this.mistakeMetric += mistakes;
+            this.symbolCount += this.texts[this.curTextCount].length;
 
             if (this.texts.length === this.curTextCount + 1) {
                 this.getFinalMetric();
@@ -71,7 +73,9 @@ export const timeEntryMixin = {
             ++this.curTextCount;
         },
         getFinalMetric() {
-            alert("Тестирование окончено. Ваши метрики: \n 1) Метрика ошибок: " + this.mistakeMetric + "\n 2) Метрика времени: " + this.timeMetric);
+            const speedMetric = this.symbolCount / this.timeMetric;
+
+            alert("Тестирование окончено. Ваши метрики: \n 1) Метрика ошибок: " + this.mistakeMetric + "\n 2) Метрика скорости: " + speedMetric + " символов в секунду");
         },
     },
     watch: {
