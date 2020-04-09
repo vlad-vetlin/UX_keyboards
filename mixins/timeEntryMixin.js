@@ -53,7 +53,7 @@ export const timeEntryMixin = {
             const mistakes = levenshteinDistance(this.curString, this.texts[this.curTextCount]);
 
             alert("Время: " + Math.floor(time / 1000) + " секунд, " + time % 1000 + " миллисекунд. " + mistakes + " ошибок.");
-            alert("Вы ввели " + this.curString + ". А правильный ввод " + this.currentActiveText);
+            alert("Длина строки: " + this.texts[this.curTextCount].length + " символов");
 
             this.timeMetric += time;
             this.mistakeMetric += mistakes;
